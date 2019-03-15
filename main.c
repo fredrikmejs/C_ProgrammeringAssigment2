@@ -3,9 +3,14 @@
 
 assignment2A(int countedE, double sumAverageEven, int countOdd, double sumAverageOdd, const double arr[]);
 goldbach(int n, double arr[], int length);
-
+/**
+ * Main function
+ * @return
+ */
 int main() {
+    //length = -1 because of the value 0 doesn't count.
 int countedE = 0, sumAverageEven = 0, countOdd = 0, sumAverageOdd = 0, length = -1, n = 0;
+//a high number, able to take a lot of inputs
     double arr[100000];
     for (int j = 0; j < sizeof(arr); j++) {
         printf("Please enter a number: ");
@@ -21,6 +26,16 @@ int countedE = 0, sumAverageEven = 0, countOdd = 0, sumAverageOdd = 0, length = 
 
     return 0;
 }
+/**
+ * function to count the number of even and odd number
+ * Checks the average of the values
+ * @param countedE just a simple name for the counted even numbers -1 because of 0.
+ * @param sumAverageEven the total sum of the even numbers
+ * @param countOdd the counted odd numbers raied by 1 each time there is an odd number
+ * @param sumAverageOdd the sum of the total value of the odd numbers
+ * @param arr the array from the main function
+ * @return
+ */
 int assignment2A(int countedE, double sumAverageEven, int countOdd, double sumAverageOdd, const double arr[]){
     int countEven = 0;
     double sumE = 0;
@@ -28,19 +43,23 @@ int assignment2A(int countedE, double sumAverageEven, int countOdd, double sumAv
     int k = 0;
 
     while (true) {
+        //checks for even numbers
         if ((int) arr[k] % 2 == 0) {
             sumE += arr[k];
             countEven++;
         }
+        //checks for odd numbers
         if ((int) arr[k] % 2 != 0) {
             sumO += arr[k];;
             countOdd++;
         }
+        //breaks if the element in arr is 0
         if (arr[k] == 0) {
             break;
         }
         k++;
     }
+    //finds the average
     countedE = countEven-1;
     sumAverageEven = sumE/countedE;
     sumAverageOdd = sumO/countOdd;
@@ -52,13 +71,21 @@ int assignment2A(int countedE, double sumAverageEven, int countOdd, double sumAv
     printf("The average of the odd numbers: %lf\n", sumAverageOdd);
 }
 
+/**
+ * Checks if the sum of two prime numbers is equal to the element of th arr
+ * @param j the index from the goldbach function
+ * @param arr the array
+ * @return it returns true or false
+ */
 bool SumOfPrime(int j, const double arr[]) {
     int n = (int) arr[j], flag1, flag2, flag3 = 0,k;
 int i = 2;
+
     while (i <= n / 2) {
         flag1 = 1;
         flag2 = 1;
         for (k = 2; k < i; k++) {
+
             if (i % k == 0) {
                 flag1 = 0;
                 k = i;
@@ -70,11 +97,12 @@ int i = 2;
                 k = n - i;
             }
         }
+        // it's true if the 2 other conditions are false.
         if (flag1 == 1 && flag2 == 1) {
             return true;
         }
         i++;
-    }
+    }   //returns true
         if (flag3 == 0) {
             return false;
         }
@@ -83,10 +111,19 @@ int i = 2;
 
 
 
-
+/**
+ * function to find the first natural number in the array and print
+ * the numbers bellow the first natrual number and makes sure
+ * that the sum of to prime numbers are not equal it
+ * @param n n is the first natural number in the array
+ * @param arr the array
+ * @param length the length is the length of the array- 1 because of 0
+ * @return
+ */
 int goldbach(int n, double arr[], int length){
 
     for (int i = 0; i < length;) {
+        //makes sure the number is a natural number
         if ((int)arr[i]%2 == 0 ||  (int)arr[i]%2 == 1){
              n = arr[i];
             printf("the first natural number: %d\n",n);
@@ -97,6 +134,7 @@ int goldbach(int n, double arr[], int length){
 
     printf("Numbers below %d:",n);
     for (int j = 0; j < length; ) {
+        //makes sure the it's a Natural number and it's not the sum of two prime numbers
         if (arr[j] < n && arr[j] > 0 && !SumOfPrime(j, arr)){
             int q = arr[j];
             printf(" %d",q);
