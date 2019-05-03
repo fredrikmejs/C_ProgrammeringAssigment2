@@ -9,23 +9,25 @@ goldbach(int n, double arr[], int length);
  */
 int main() {
     //length = -1 because of the value 0 doesn't count.
-int countedE = 0, sumAverageEven = 0, countOdd = 0, sumAverageOdd = 0, length = -1, n = 0;
-//a high number, able to take a lot of inputs
+    int countedE = 0, sumAverageEven = 0, countOdd = 0, sumAverageOdd = 0, length = -1, n = 0;
+    //a high number, able to take a lot of inputs
     double arr[100000];
     for (int j = 0; j < sizeof(arr); j++) {
         printf("Please enter a number: ");
         scanf("%lf", &arr[j]);
         length++;
-        if (arr[j] == 0){
+        if (arr[j] == 0) {
             break;
         }
     }
 
-    assignment2A(countedE,sumAverageEven,countOdd, sumAverageOdd, arr);
-    goldbach(n,arr, length);
+    assignment2A(countedE, sumAverageEven, countOdd, sumAverageOdd, arr);
+    goldbach(n, arr, length);
 
     return 0;
 }
+
+
 /**
  * function to count the number of even and odd number
  * Checks the average of the values
@@ -77,7 +79,7 @@ int assignment2A(int countedE, double sumAverageEven, int countOdd, double sumAv
  * @param arr the array
  * @return it returns true or false
  */
-bool SumOfPrime(int j, const double arr[]) {
+bool sumOfPrime(int j, const double *arr) {
     int n = (int) arr[j], flag1, flag2, flag3 = 0,k;
 int i = 2;
 
@@ -135,7 +137,7 @@ int goldbach(int n, double arr[], int length){
     printf("Numbers below %d:",n);
     for (int j = 0; j < length; ) {
         //makes sure the it's a Natural number and it's not the sum of two prime numbers
-        if (arr[j] < n && arr[j] > 0 && !SumOfPrime(j, arr)){
+        if (arr[j] < n && arr[j] > 0 && !sumOfPrime(j, arr)){
             int q = arr[j];
             printf(" %d",q);
         }
