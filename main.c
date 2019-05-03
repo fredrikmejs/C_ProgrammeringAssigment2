@@ -1,33 +1,49 @@
 #include <stdio.h>
 #include <stdbool.h>
+#include <stdlib.h>
+#include <math.h>
 
-assignment2A(int countedE, double sumAverageEven, int countOdd, double sumAverageOdd, const double arr[]);
-goldbach(int n, double arr[], int length);
+struct dynamicArray {
+    double *array;
+    int used;
+    int size;
+};
+
+int assignment2A(int countedE, double sumAverageEven, int countOdd, double sumAverageOdd, const double arr[]);
+int goldbach(int n, double arr[], int length);
+void add (struct dynamicArray *arr, double value);
+bool equals (double d1, double d2, int precession);
+bool hasRightAngle (double a, double b, double c);
+
 /**
  * Main function
  * @return
  */
 int main() {
     //length = -1 because of the value 0 doesn't count.
-    int countedE = 0, sumAverageEven = 0, countOdd = 0, sumAverageOdd = 0, length = -1, n = 0;
-    //a high number, able to take a lot of inputs
-    double arr[100000];
+int countedE = 0, sumAverageEven = 0, countOdd = 0, sumAverageOdd = 0, n = 0;
+
+    struct dynamicArray arr;
+    arr.array = malloc(1);
+    arr.size = 1;
+    arr.used = 0;
+    double temp;
+
     for (int j = 0; j < sizeof(arr); j++) {
         printf("Please enter a number: ");
-        scanf("%lf", &arr[j]);
-        length++;
-        if (arr[j] == 0) {
+        scanf("%lf", &temp);
+        add(&arr, temp);
+        if (arr.array[j] == 0){
             break;
         }
     }
 
-    assignment2A(countedE, sumAverageEven, countOdd, sumAverageOdd, arr);
-    goldbach(n, arr, length);
+    assignment2A(countedE,sumAverageEven,countOdd, sumAverageOdd, arr.array);
+    goldbach(n,arr.array, arr.used);
+
 
     return 0;
 }
-
-
 /**
  * function to count the number of even and odd number
  * Checks the average of the values
@@ -79,7 +95,7 @@ int assignment2A(int countedE, double sumAverageEven, int countOdd, double sumAv
  * @param arr the array
  * @return it returns true or false
  */
-bool sumOfPrime(int j, const double *arr) {
+bool SumOfPrime(int j, const double arr[]) {
     int n = (int) arr[j], flag1, flag2, flag3 = 0,k;
 int i = 2;
 
@@ -137,7 +153,7 @@ int goldbach(int n, double arr[], int length){
     printf("Numbers below %d:",n);
     for (int j = 0; j < length; ) {
         //makes sure the it's a Natural number and it's not the sum of two prime numbers
-        if (arr[j] < n && arr[j] > 0 && !sumOfPrime(j, arr)){
+        if (arr[j] < n && arr[j] > 0 && !SumOfPrime(j, arr)){
             int q = arr[j];
             printf(" %d",q);
         }
@@ -147,3 +163,39 @@ int goldbach(int n, double arr[], int length){
 
 }
 
+
+bool hasRightAngle (double a, double b, double c) {
+    double angleA;
+    double angleB;
+    double angleC;
+
+    angleA = cos((pow(b,2) + pow(c, 2) - pow(a, 2)) / (2 * b * c));
+    if (equals(90, angleA, 5))
+        return true;
+    angleB = cos((pow(a,2) + pow(c, 2) - pow(b, 2)) / (2 * a * b));
+    if (equals(90, angleB, 5))
+        return true;
+    angleC = cos((pow(a,2) + pow(b, 2) - pow(c, 2)) / (2 * a * b));
+    if (equals(90, angleA, 5))
+        return true;
+
+    return false;
+}
+
+bool equals (double d1, double d2, int precession) {
+    if (d1 == d2)
+        return true;
+    if (d1 > d2)
+        return d1 - d2 > (double) 1 / precession;
+    else
+        return d2 - d1 > (double) 1 / precession;
+}
+
+void add (struct dynamicArray *arr, double value) {
+    if (arr->size == arr->used) {
+        arr->size *= 2;
+        arr->array = (double *) realloc(arr->array, arr->size * sizeof(double));
+    }
+
+    arr->array[arr->used++] = value;
+}
