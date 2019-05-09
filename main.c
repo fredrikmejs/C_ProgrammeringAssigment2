@@ -176,7 +176,7 @@ bool hasRightAngle (double a, double b, double c) {
     if (equals(90, angleB, 5))
         return true;
     angleC = cos((pow(a,2) + pow(b, 2) - pow(c, 2)) / (2 * a * b));
-    if (equals(90, angleA, 5))
+    if (equals(90, angleC, 5))
         return true;
 
     return false;
