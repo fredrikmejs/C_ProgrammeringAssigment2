@@ -9,8 +9,8 @@ struct dynamicArray {
     int size;
 };
 
-int assignment2A(int countedE, double sumAverageEven, int countOdd, double sumAverageOdd, const double arr[]);
-int goldbach(int n, double arr[], int length);
+int assignment2A(const double arr[]);
+int goldbach(double arr[], int length);
 void add (struct dynamicArray *arr, double value);
 bool equals (double d1, double d2, int precession);
 bool hasRightAngle (double a, double b, double c);
@@ -20,8 +20,7 @@ bool hasRightAngle (double a, double b, double c);
  * @return
  */
 int main() {
-    //length = -1 because of the value 0 doesn't count.
-int countedE = 0, sumAverageEven = 0, countOdd = 0, sumAverageOdd = 0, n = 0;
+int n = 0;
 
     struct dynamicArray arr;
     arr.array = malloc(1);
@@ -38,8 +37,8 @@ int countedE = 0, sumAverageEven = 0, countOdd = 0, sumAverageOdd = 0, n = 0;
         }
     }
 
-    assignment2A(countedE,sumAverageEven,countOdd, sumAverageOdd, arr.array);
-    goldbach(n,arr.array, arr.used);
+    assignment2A(arr.array);
+    goldbach(arr.array, arr.used);
 
 
     return 0;
@@ -54,8 +53,11 @@ int countedE = 0, sumAverageEven = 0, countOdd = 0, sumAverageOdd = 0, n = 0;
  * @param arr the array from the main function
  * @return
  */
-int assignment2A(int countedE, double sumAverageEven, int countOdd, double sumAverageOdd, const double arr[]){
+int assignment2A(const double arr[]){
     int countEven = 0;
+    double sumAverageEven;
+    int countOdd = 0;
+    double sumAverageOdd;
     double sumE = 0;
     double sumO = 0;
     int k = 0;
@@ -78,7 +80,7 @@ int assignment2A(int countedE, double sumAverageEven, int countOdd, double sumAv
         k++;
     }
     //finds the average
-    countedE = countEven-1;
+    int countedE = countEven-1;
     sumAverageEven = sumE/countedE;
     sumAverageOdd = sumO/countOdd;
 
@@ -87,6 +89,7 @@ int assignment2A(int countedE, double sumAverageEven, int countOdd, double sumAv
     printf("The average of the even numbers: %lf\n", sumAverageEven);
     printf("The number of odd numbers: %d\n", countOdd);
     printf("The average of the odd numbers: %lf\n", sumAverageOdd);
+
 }
 
 /**
@@ -96,32 +99,32 @@ int assignment2A(int countedE, double sumAverageEven, int countOdd, double sumAv
  * @return it returns true or false
  */
 bool SumOfPrime(int j, const double arr[]) {
-    int n = (int) arr[j], flag1, flag2, flag3 = 0,k;
+    int n = (int) arr[j], fg1, fg2, fg3 = 0,k;
 int i = 2;
 
     while (i <= n / 2) {
-        flag1 = 1;
-        flag2 = 1;
+        fg1 = 1;
+        fg2 = 1;
         for (k = 2; k < i; k++) {
 
             if (i % k == 0) {
-                flag1 = 0;
+                fg1 = 0;
                 k = i;
             }
         }
         for (k = 2; k < n - i; k++) {
             if ((n - i) % k == 0) {
-                flag2 = 0;
+                fg2 = 0;
                 k = n - i;
             }
         }
         // it's true if the 2 other conditions are false.
-        if (flag1 == 1 && flag2 == 1) {
+        if (fg1 == 1 && fg2 == 1) {
             return true;
         }
         i++;
     }   //returns true
-        if (flag3 == 0) {
+        if (fg3 == 0) {
             return false;
         }
 }
@@ -138,8 +141,8 @@ int i = 2;
  * @param length the length is the length of the array- 1 because of 0
  * @return
  */
-int goldbach(int n, double arr[], int length){
-
+int goldbach(double arr[], int length){
+int n;
     for (int i = 0; i < length;) {
         //makes sure the number is a natural number
         if ((int)arr[i]%2 == 0 ||  (int)arr[i]%2 == 1){
@@ -149,7 +152,6 @@ int goldbach(int n, double arr[], int length){
         }
         i++;
     }
-
     printf("Numbers below %d:",n);
     for (int j = 0; j < length; ) {
         //makes sure the it's a Natural number and it's not the sum of two prime numbers
@@ -158,9 +160,7 @@ int goldbach(int n, double arr[], int length){
             printf(" %d",q);
         }
             j++;
-
     }
-
 }
 
 
