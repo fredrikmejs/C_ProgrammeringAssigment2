@@ -86,10 +86,14 @@ int assignment2A(const double arr[]){
 
 
     printf("The number of even numbers: %d\n", countedE);
+    if(countedE > 0){
     printf("The average of the even numbers: %lf\n", sumAverageEven);
-    printf("The number of odd numbers: %d\n", countOdd);
-    printf("The average of the odd numbers: %lf\n", sumAverageOdd);
+    } else printf("The average of the even numbers: %d\n", 0);
 
+    printf("The number of odd numbers: %d\n", countOdd);
+    if (countOdd > 0 ) {
+        printf("The average of the odd numbers: %lf\n", sumAverageOdd);
+    } else printf("The average of the odd numbers: %d\n", 0);
 }
 
 /**
