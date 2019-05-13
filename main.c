@@ -10,7 +10,7 @@ struct dynamicArray {
 };
 
 int assignment2A(const double arr[]);
-int goldbach(double arr[], int length);
+void goldbach(double arr[], int length);
 void add (struct dynamicArray *arr, double value);
 bool equals (double d1, double d2, int precession);
 bool hasRightAngle (double a, double b, double c);
@@ -153,7 +153,7 @@ int i = 2;
  * @param length the length is the length of the array- 1 because of 0
  * @return
  */
-int goldbach(double arr[], int length){
+void goldbach(double arr[], int length){
 int n;
     for (int i = 0; i < length;) {
         //makes sure the number is a natural number
@@ -179,6 +179,7 @@ int n;
 bool hasRightAngle (double a, double b, double c) {
     double hyp = 0, adjacent1 = 0, adjacent2 = 0;
 
+    //Finds the hyp of the triangle by finding the highest number.
     if(a > b && a > c){
     hyp = a;
     adjacent1 = c;
@@ -194,7 +195,7 @@ bool hasRightAngle (double a, double b, double c) {
     } else if(a == c && a == b){
         return false;
     }
-
+    //Checks pythagoras statement if it's true.
     double powA1 = pow(adjacent1,2), powA2 = pow(adjacent2,2), powHyp =pow(hyp,2);
     double sumOfPow =powA1 + powA2;
    if(equals(sumOfPow,powHyp,2) ){
@@ -203,7 +204,9 @@ bool hasRightAngle (double a, double b, double c) {
 
     return false;
 }
-
+/*
+ * Checks for precession because of the rounding of the dobbles.
+ */
 bool equals (double d1, double d2, int precession) {
     if (d1 == d2)
         return true;
