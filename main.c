@@ -177,21 +177,29 @@ int n;
 
 
 bool hasRightAngle (double a, double b, double c) {
-    double angleA;
-    double angleB;
-    double angleC;
+    double hyp = 0, adjacent1 = 0, adjacent2 = 0;
 
+    if(a > b && a > c){
+    hyp = a;
+    adjacent1 = c;
+    adjacent2 = b;
+    } else if(b > a && b > c){
+        hyp = b;
+        adjacent1 = a;
+        adjacent2 = c;
+    } else if (c > a && c > b){
+        hyp = c;
+        adjacent1 = a;
+        adjacent2 = b;
+    } else if(a == c && a == b){
+        return false;
+    }
 
-
-    angleA = cos((pow(b,2) + pow(c, 2) - pow(a, 2)) / (2 * b * c));
-    if (equals(90, angleA, 50))
-        return true;
-    angleB = cos((pow(a,2) + pow(c, 2) - pow(b, 2)) / (2 * a * b));
-    if (equals(90, angleB, 50))
-        return true;
-    angleC = cos((pow(a,2) + pow(b, 2) - pow(c, 2)) / (2 * a * c));
-    if (equals(90, angleC, 50))
-        return true;
+    double powA1 = pow(adjacent1,2), powA2 = pow(adjacent2,2), powHyp =pow(hyp,2);
+    double sumOfPow =powA1 + powA2;
+   if(equals(sumOfPow,powHyp,2) ){
+       return true;
+   }
 
     return false;
 }
@@ -200,9 +208,9 @@ bool equals (double d1, double d2, int precession) {
     if (d1 == d2)
         return true;
     if (d1 > d2)
-        return d1 - d2 > (double) 1 / precession;
+        return d1 - d2 < (double) 1 / precession;
     else
-        return d2 - d1 > (double) 1 / precession;
+        return d2 - d1 < (double) 1 / precession;
 }
 
 void add (struct dynamicArray *arr, double value) {
