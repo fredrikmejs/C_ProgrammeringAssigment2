@@ -39,6 +39,14 @@ int n = 0;
 
     assignment2A(arr.array);
     goldbach(arr.array, arr.used);
+    printf("\n--------------------------\n");
+    printf("Enter three sides of a triangle\n");
+    double a, b, c;
+    scanf("%lf %lf %lf", &a,&b,&c);
+    if(hasRightAngle(a,b,c))
+        printf("It's right");
+    else
+        printf("It's not right");
 
 
     return 0;
@@ -173,14 +181,16 @@ bool hasRightAngle (double a, double b, double c) {
     double angleB;
     double angleC;
 
+
+
     angleA = cos((pow(b,2) + pow(c, 2) - pow(a, 2)) / (2 * b * c));
-    if (equals(90, angleA, 5))
+    if (equals(90, angleA, 50))
         return true;
     angleB = cos((pow(a,2) + pow(c, 2) - pow(b, 2)) / (2 * a * b));
-    if (equals(90, angleB, 5))
+    if (equals(90, angleB, 50))
         return true;
-    angleC = cos((pow(a,2) + pow(b, 2) - pow(c, 2)) / (2 * a * b));
-    if (equals(90, angleC, 5))
+    angleC = cos((pow(a,2) + pow(b, 2) - pow(c, 2)) / (2 * a * c));
+    if (equals(90, angleC, 50))
         return true;
 
     return false;
